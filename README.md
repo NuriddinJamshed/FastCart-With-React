@@ -32,6 +32,7 @@ cd fast-cart
 
 # Install dependencies
 npm install
+```
 
 # Run the development server
 npm run dev   # Or use npm start if using CRA
