@@ -7,16 +7,18 @@ let token = localStorage.getItem("Token")
 
 const API = import.meta.env.VITE_API_URL
 
-export const getProducts = createAsyncThunk("products/get", async () => {
+export const getProducts = createAsyncThunk(
+  "products/get",
+  async (queryString, { rejectWithValue }) => {
     try {
-        let { data } = await axios.get(`${API}/Product/get-products`)
-        console.log(data);
-
-        return data.data
+      const { data } = await axios.get(`${API}/Product/get-products?${queryString}`);
+      return data.data;
     } catch (error) {
-        console.error(error);
+      return rejectWithValue(error.response?.data || error.message);
     }
-})
+  }
+);
+
 
 export const addToCart = createAsyncThunk("cart/addToCart", async (id, { dispatch }) => {
     try {
@@ -165,22 +167,22 @@ export const editUserProfile = createAsyncThunk("products/editUserProfile", asyn
     }
 })
 
-export const filterProducts = createAsyncThunk(
-    "products/filter",
-    async (obj) => {
-        try {
-            const { data } = await axios.get(`${API}/Product/get-products`, obj, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            return data.data;
-        } catch (error) {
-            console.error(error);
-            return rejectWithValue(error.response?.data || error.message);
-        }
-    }
-);
+// export const filterProducts = createAsyncThunk(
+//     "products/filter",
+//     async (obj) => {
+//         try {
+//             let { data } = await axios.get(`${API}/Product/get-products?${obj}`, {
+//                 headers: {
+//                     Authorization: `Bearer ${token}`,
+//                 },
+//             });
+//             return data.data;
+//         } catch (error) {
+//             console.error(error);
+//             return rejectWithValue(error.response?.data || error.message);
+//         }
+//     }
+// );
 
 export const productsData = createSlice({
     name: 'products',
@@ -196,12 +198,10 @@ export const productsData = createSlice({
         wishlist: JSON.parse(localStorage.getItem("wishlist")) || [],
         categories: [],
         brands: [],
-        searchName: "",
         min: "",
         max: "",
         selectedBrand: "",
-        selectedCategory: "",
-        obj: {}
+        selectedCategory: ""
     },
     reducers: {
         openModal: (state) => {
@@ -218,15 +218,6 @@ export const productsData = createSlice({
                 state.wishlist.push(action.payload)
             }
             localStorage.setItem("wishlist", JSON.stringify(state.wishlist))
-        },
-        filterFunc: (state, action) => {
-            state.obj = {
-                ProductName: state.searchName,
-                MinPrice: state.min,
-                MaxPrice: state.max,
-                BrandId: state.selectedBrand,
-                CategoryId: state.selectedCategory,
-            };
         },
         changePrice: (state, actions) => {
             state.min = actions.payload.min
@@ -251,9 +242,15 @@ export const productsData = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getProducts.fulfilled, (state, actions) => {
-            state.products = actions.payload.products
-        })
+        builder.addCase(getProducts.fulfilled, (state, action) => {
+        if (Array.isArray(action.payload)) {
+          state.products = action.payload;
+        } else if (Array.isArray(action.payload.products)) {
+          state.products = action.payload.products;
+        } else {
+          state.products = [];
+        }
+      })
         builder.addCase(loginToAccount.fulfilled, (state, actions) => {
             localStorage.setItem("Token", actions.payload)
         })
@@ -281,9 +278,9 @@ export const productsData = createSlice({
         builder.addCase(getBrand.fulfilled, (state, actions) => {
             state.brands = actions.payload
         })
-        builder.addCase(filterProducts.fulfilled, (state, actions) => {
-            state.products = actions.payload.data
-        })
+        // builder.addCase(filterProducts.fulfilled, (state, actions) => {
+        //     state.products = actions.payload.products
+        // })
     }
 })
 

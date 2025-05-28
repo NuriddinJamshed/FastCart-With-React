@@ -14,10 +14,10 @@ const API = import.meta.env.VITE_API_URL
 
 import foto from "../../shared/imgs/Frame 694.png"
 import Timer2 from '../../shared/components/timer copy/timer';
-import Services6 from "../../shared/imgs/Services (6).png"  
-import Services7 from "../../shared/imgs/Services (7).png"  
-import Services8 from "../../shared/imgs/Services (8).png" 
-import play from "../../shared/imgs/1c360f790c1817d3afa266b3c9f8c81ff0ed4428.png" 
+import Services6 from "../../shared/imgs/Services (6).png"
+import Services7 from "../../shared/imgs/Services (7).png"
+import Services8 from "../../shared/imgs/Services (8).png"
+import play from "../../shared/imgs/1c360f790c1817d3afa266b3c9f8c81ff0ed4428.png"
 import gucci from "../../shared/imgs/652e82cd70aa6522dd785109a455904c (1).png"
 import frame from "../../shared/imgs/Frame 707.png"
 import ladmoda from "../../shared/imgs/attractive-woman-wearing-hat-posing-black-background 1.png"
@@ -31,7 +31,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getProducts()),
-    dispatch(getCategories())
+      dispatch(getCategories())
   }, [])
 
   return (
@@ -46,7 +46,7 @@ const Home = () => {
         <div className='flex flex-wrap m-auto w-[90%] md:border-[##E5E5E5] md:border-r-[1px] md:w-[20%] md:gap-[0px] gap-[10px]'>
           {
             categories.map((el, i) => (
-              <span onClick={()=>navigate("/products")} key={i} className='bg-[#F5F5F5] md:w-[100%] md:py-[5px] md:bg-[#fff] p-[10px] text-[18px] font-[400] rounded-[5px]'>{el.categoryName}</span>
+              <span onClick={() => navigate("/products")} key={i} className='bg-[#F5F5F5] md:w-[100%] md:py-[5px] md:bg-[#fff] p-[10px] text-[18px] font-[400] rounded-[5px]'>{el.categoryName}</span>
             ))
           }
         </div>
@@ -125,7 +125,7 @@ const Home = () => {
         </Swiper>
         <div className='flex justify-center w-[90%] m-auto border-b-[1px] border-b-[#B3B3B3]  items-center pb-[50px] '>
           <Link to={"/products"} className='rounded-[5px] text-[#fff] bg-[#DB4444] text-[18px] px-[30px] py-[10px]'>View All Products</Link>
-        </div>  
+        </div>
       </div>
       <div className='w-[90%] flex flex-col m-auto gap-y-[20px]'>
         <div className='flex gap-[5px] items-center'>
@@ -210,7 +210,7 @@ const Home = () => {
         <div className='text-[#fff] p-0 gap-y-[20px] w-[90%] md:p-[20px] flex flex-col justify-between md:w-[50%]'>
           <h1 className='font-[400] text-[#00FF66] text-[18px]'>Categories</h1>
           <p className='text-[32px] font-[600]'>Enhance Your Music Experience</p>
-          <Timer2/>
+          <Timer2 />
           <Link to={"/products"} className='bg-[#00FF66] w-[50%] text-[#000] md:w-[35%] p-[10px] rounded-[5px] text-center text-[20px]'>Buy Now!</Link>
         </div>
         <img className='w-[90%] md:w-[50%]' src={foto} alt="" />
@@ -225,7 +225,7 @@ const Home = () => {
         </div>
       </div>
       <div className='w-[90%] m-auto flex flex-col gap-y-[20px] md:flex-row flex-wrap'>{
-        products.slice(0,8).map((el) => (
+        products.slice(0, 8).map((el) => (
           <div className='w-[100%] md:w-[25%]' key={el.id}>
             <Card
               img={`${API}/images/${el.image}`}
@@ -238,75 +238,81 @@ const Home = () => {
             />
           </div>
         ))
-        }</div>
-        <div className='flex justify-center w-[90%] m-auto border-b-[1px] border-b-[#B3B3B3]  items-center pb-[50px] '>
-          <Link to={"/products"} className='rounded-[5px] text-[#fff] bg-[#DB4444] text-[18px] px-[30px] py-[10px]'>View All Products</Link>
-        </div>
-        <div className='w-[90%] flex my-[30px] mt-[70px] flex-col m-auto gap-y-[20px]'>
+      }</div>
+      <div className='flex justify-center w-[90%] m-auto border-b-[1px] border-b-[#B3B3B3]  items-center pb-[50px] '>
+        <Link to={"/products"} className='rounded-[5px] text-[#fff] bg-[#DB4444] text-[18px] px-[30px] py-[10px]'>View All Products</Link>
+      </div>
+      <div className='w-[90%] flex my-[30px] mt-[70px] flex-col m-auto gap-y-[20px]'>
         <div className='flex gap-[5px] items-center'>
           <i className='bg-[#DB4444] rounded-[3px] py-[15px] px-[8px]'></i>
           <p className='text-[#DB4444] font-[600] text-[16px]'>Featured</p>
         </div>
+
         <div className='flex flex-col gap-y-[20px] justify-between md:flex-row md:items-center'>
           <h1 className='text-[32px] md:text-[36px] font-[600]'>New Arrival</h1>
         </div>
-        <div className="grid grid-cols-1 grid-row-4 md:grid-rows-2  md:grid-cols-4 gap-4">
 
-        <div className="col-span-1 md:col-span-2 bg-[#000] relative overflow-hidden">
-          <img
-            src={play}
-            alt="PlayStation 5"
-            className="absolute bottom-0"
-          />
-          <div className="absolute bottom-4 left-4 text-white">
-            <h3 className="text-xl font-semibold">PlayStation 5</h3>
-            <p className="text-sm">Black and white version of the PS5 coming out on sale.</p>
-            <button className="mt-2 px-4 py-2 bg-white text-black">Shop Now</button>
+        <div className="w-[100%] m-auto flex flex-col gap-y-[30px] md:flex-row justify-between">
+          <div className="w-[100%] h-auto p-[30px] md:w-[48%] bg-[#000]">
+            <img
+              src={play}
+              alt="PlayStation 5"
+            />
+            <div className="text-white">
+              <h3 className="text-[22px]">PlayStation 5</h3>
+              <p className="text-[18px]">Black and white version of the PS5 coming out on sale.</p>
+              <button className="mt-2 px-4 py-2 bg-white text-black">Shop Now</button>
+            </div>
           </div>
+
+          <div className='flex flex-col gap-y-[30px] w-[100%] justify-between md:w-[48%]'>
+
+            <div className="bg-[#000] w-[100%] h-[60vh] md:h-[40vh] p-[30px] flex flex-row-reverse justify-between">
+              <img
+                src={ladmoda}
+                alt="Women's Collections"
+                className="w-[50%]"
+              />
+              <div className="text-[white]">
+                <h3 className="text-lg font-semibold">Women’s Collections</h3>
+                <p className="text-sm">Featured woman collections that <br /> give you another vibe.</p>
+                <button className="mt-2 px-4 py-2 text-[black] bg-[#fff]">Shop Now</button>
+              </div>
+            </div>
+
+            <div className="flex w-[100%] gap-y-[30px] flex-col md:flex-row justify-between">
+
+              <div className="bg-[#000] h-[60vh] md:h-[40vh] w-[100%] relative p-[30px] md:w-[48%]">
+                <img
+                  src={frame}
+                  alt="Speakers"
+                  className="w-[80%] absolute bottom-0"
+                />
+                <div className="text-white absolute z-20 bottom-[30px] left-[30px]">
+                  <h3 className="text-lg font-semibold">Speakers</h3>
+                  <p className="text-sm">Amazon wireless speakers</p>
+                  <button className="mt-2 px-4 py-2 bg-white text-black">Shop Now</button>
+                </div>
+              </div>
+
+
+              <div className="bg-[#000] h-[60vh] md:h-[40vh] w-[100%] relative p-[30px] md:w-[48%]">
+                <img
+                  src={gucci}
+                  alt="Perfume"
+                  className="w-[80%] absolute bottom-0"
+                />
+                <div className="text-white absolute z-20 bottom-[30px] left-[30px]">
+                  <h3 className="text-lg font-semibold">Perfume</h3>
+                  <p className="text-sm">GUCCI INTENSE OUD EDP</p>
+                  <button className="mt-2 px-4 py-2 bg-white text-black">Shop Now</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-
-          <div className="relative md:col-span-2 bg-[#000] overflow-hidden row-span-1">
-            <img
-              src={ladmoda}
-              alt="Women's Collections"
-              className="absolute bottom-0"
-            />
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-lg font-semibold">Women’s Collections</h3>
-              <p className="text-sm">Find women’s collections that give you another vibe.</p>
-              <button className="mt-2 px-4 py-2 bg-white text-black">Shop Now</button>
-            </div>
-          </div>
-        <div className="grid grid-col-2 gap-4">
-
-          <div className="relative bg-[#000] overflow-hidden row-span-1">
-            <img
-              src={frame}
-              alt="Speakers"
-              className="absolute bottom-0"
-            />
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-lg font-semibold">Speakers</h3>
-              <p className="text-sm">Amazon wireless speakers</p>
-              <button className="mt-2 px-4 py-2 bg-white text-black">Shop Now</button>
-            </div>
-          </div>
-
-
-          <div className="relative bg-[#000] overflow-hidden row-span-1">
-            <img
-              src={gucci}
-              alt="Perfume"
-              className="absolute bottom-0"
-            />
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-lg font-semibold">Perfume</h3>
-              <p className="text-sm">GUCCI INTENSE OUD EDP</p>
-              <button className="mt-2 px-4 py-2 bg-white text-black">Shop Now</button>
-            </div>
-          </div>
-        </div>
-      </div>
       </div>
       <div className='flex mb-[20vh] w-[90%] m-auto flex-col md:flex-row gap-y-[20px] justify-between md:items-center'>
         <div className='w-[100%] p-[10px] m-auto flex flex-col gap-y-[10px] items-center md:w-[30%]'>

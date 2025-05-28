@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { editUserProfile, userInfo } from '../../entities/reducerc/Products'
 
+const API = import.meta.env.VITE_API_URL;
+
 const Account = () => {
   let dispatch = useDispatch()
 
@@ -12,6 +14,7 @@ const Account = () => {
   let [email, setEmail] = useState('')
   let [phoneNumber, setPhoneNumber] = useState("")
   let [dob, setDob] = useState("")
+  let [avatar, setAvatar] = useState(null)
   let [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -21,7 +24,7 @@ const Account = () => {
       setEmail(data.email || "")
       setPhoneNumber(data.phoneNumber || "")
       setDob(data.dob || "")
-      console.log(typeof (data.dob))
+      setAvatar(data.image)
     }
   }, [data])
 
@@ -46,8 +49,9 @@ const Account = () => {
 
   return (
     <div>
-      <div>
+      <div className='flex w-[90%] my-[20px] flex flex-col md:flex-row items-center justify-between m-auto '>
         <p className='text-[#8d8d8d] text-[20px] w-[90%] m-auto py-[30px]'>Home / <samp className='text-[#000]'>My Account</samp></p>
+        <img className='w-[100px] h-[100px] rounded-[50%] ' src={`${API}/images/${avatar}`} alt="" />
       </div>
       <div className='flex flex-col md:flex-row md:w-[90%] items-start justify-between m-auto'>
         <div className='flex flex-col md:flex-row md:w-[20%] justify-start md:h-[95vh] w-[90%] m-auto'>
@@ -96,7 +100,9 @@ const Account = () => {
             <input className='border-[1px] w-[100%] border-[#C4C4C4] p-[10px] rounded-[5px] outline-0' type="text" placeholder='Current passwod' />
             <input className='border-[1px] w-[100%] md:w-[48%] border-[#C4C4C4] p-[10px] rounded-[5px] outline-0' type="text" placeholder='New passwod' />
             <input className='border-[1px] w-[100%] md:w-[48%] border-[#C4C4C4] p-[10px] rounded-[5px] outline-0' type="text" placeholder='Confirm new passwod' />
-            <p className='w-[15%] hidden md:block text-[#fff]'>.</p>
+            <p className='w-[15%] hidden md:block text-[#fff]'>
+              .
+            </p>
             <div className='flex flex-col w-[100%] gap-y-[10px] gap-x-[20px] md:w-[48%] md:flex-row-reverse md:mt-[20px]'>
               <button onClick={()=>saveChanges()} className='p-[10px] w-[100%] text-[18px] text-[#fff] bg-[#DB4444] rounded-[5px]'>Save Changes</button>
               <button className='p-[10px] w-[100%] text-[18px] font-[500]'>Cancel</button>
